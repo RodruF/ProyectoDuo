@@ -61,19 +61,4 @@
 			<li>{{miParque.abierto}}</li>
 		</ol>
 	</div>
-
-
-	<hr>
-	<parques [nombre]="'Nombre por defecto'" 
-		         [metros_cuadrados]="589"
-		         (pasameLosDatos)="verDatosParque($event)"
-		         ></parques>
-
-	<p *ngIf="nombreDelParque">
-		Hijo:
-		<parques [nombre]="nombreDelParque" 
-		         [metros_cuadrados]="567"
-		         (pasameLosDatos)="verDatosParque($event)"
-		         ></parques>
-	</p>
 </div>

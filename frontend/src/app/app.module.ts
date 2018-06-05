@@ -14,7 +14,6 @@ import { AppComponent } from './app.component';
 import { SimpleTinyComponent } from './components/simple-tiny/simple-tiny.component';
 
 import { TiendaComponent } from './components/tienda/tienda.component';
-import { ParquesComponent } from './components/parques/parques.component';
 import { AnimalsComponent } from './components/animals/animals.component';
 import { ContactComponent } from './components/contact/contact.component';
 import { HomeComponent } from './components/home/home.component';
@@ -34,7 +33,6 @@ import { UserService } from './services/user.service';
   declarations: [
     AppComponent,
     TiendaComponent,
-    ParquesComponent,
     AnimalsComponent,
     ContactComponent,
     HomeComponent,
