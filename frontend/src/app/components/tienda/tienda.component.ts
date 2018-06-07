@@ -3,7 +3,7 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 import { fadeIn } from '../animation';
 
 @Component({
-	selector: 'tienda',
+	selector: 'app-tienda',
 	templateUrl: './tienda.component.html',
 	styleUrls: ['./tienda.component.css'],
 	animations: [
