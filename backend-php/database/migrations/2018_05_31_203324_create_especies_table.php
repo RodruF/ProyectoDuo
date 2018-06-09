@@ -16,11 +16,11 @@ class CreateEspeciesTable extends Migration
         Schema::create('especies', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
-            $table->integer('idJaula');
+            $table->unsignedInteger('idJaula');
             $table->string('nombre');
             $table->string('descripcion');
             $table->binary('image'); // for blob
-          
+            $table->foreign('idJaula')->references('id')->on('jaulas');
 
             $table->timestamps();
         });

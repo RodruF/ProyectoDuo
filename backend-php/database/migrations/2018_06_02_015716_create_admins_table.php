@@ -1,10 +1,10 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
-class CreateTipousuariosTable extends Migration
+class CreateAdminsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,12 @@ class CreateTipousuariosTable extends Migration
      */
     public function up()
     {
-        Schema::create('tipousuarios', function (Blueprint $table) {
+        Schema::create('admins', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
-            $table->string('nombre');
+            $table->string('role');
+            $table->string('correo');
+            $table->string('password');
             $table->timestamps();
         });
     }
@@ -28,6 +30,6 @@ class CreateTipousuariosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tipousuarios');
+        Schema::dropIfExists('admins');
     }
 }

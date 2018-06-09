@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Animal;
 use App\Helpers\JwtAuth;
 use Illuminate\Http\Request;
-use App\Http\Requests;
 use Illuminate\Support\Facades\Response;
 
 class AnimalController extends Controller
@@ -17,17 +16,22 @@ class AnimalController extends Controller
      */
     public function index(Request $request)
     {
-        /*$hash = $request->header('Authorization', null);
+        $hash = $request->header('Authorization', null);
         $jwtAuth = new JwtAuth();
         $checkToken = $jwtAuth->checkToken($hash);
 
         if ($checkToken) {
-            echo "bien";die();
+            $animales = Animal::all();
+            $response = Response::json($animales, 200);
         } else {
-            echo "mal";die();
-        }*/
-        $animales = Animal::all();
-        $response = Response::json($animales, 200);
+            $data = array(
+                'message' => 'Login incorrecto',
+                'status' => 'error',
+                'code' => 400,
+            );
+
+        }
+
         return $response;
     }
 
@@ -54,83 +58,44 @@ class AnimalController extends Controller
         $checkToken = $jwtAuth->checkToken($hash);
 
         if ($checkToken) {
-            if((!$request->nombre)||(!$request->descripcion)||(!$request->año)){
-                $response = Response::json([
-                    'message' => 'por favor escriba todos los campos requeridos'
-                ],422);
+            $json = $request->input('json', null);
+            $params = json_decode($json);
+
+            $nombre = (!is_null($json) && isset($params->nombre)) ? $params->nombre : null;
+            $descrpcion = (!is_null($json) && isset($params->descripcion)) ? $params->descripcion : null;
+            $año = (!is_null($json) && isset($params->año)) ? $params->año : null;
+            if ((!$request->nombre) || (!$request->descripcion) || (!$request->año)) {
+
+                $animales = new Animal();
+                $animales->nombre = $nombre;
+                $usuarios->descripcion = $descrpcion;
+                $usuarios->año = $año;
+                $animales->save();
+
+                $data = array(
+                    'status' => 'success',
+                    'code' => 200,
+                    'message' => 'animal creado',
+                );
+
+            } else {
+                
+                $data = array(
+                    'status' => 'error',
+                    'code' => 400,
+                    'message' => 'faltan campos',
+                );
+
             }
-
-            $animales = new Animal(array(
-                'nombre' => trim($request->nombre),
-                'descripcion' => trim($request->descripcion),
-                'año' => 5
-            ));
-            $animales->save();
-            $message = 'animal agregado';
-
-            $response = Response::json([
-                'message' => $message,
-                'data' => $animales,
-            ],200);
-        }else{
-             $data = array(
-                'message' => 'Login incorrecto',
+        } else {
+            $data = array(
                 'status' => 'error',
                 'code' => 400,
+                'message' => 'no autorizado',
             );
         }
-        return $response;
-        //     //recoger datos por post
-        //     $json = $request->input('json', null);
-        //     $params = json_decode($json);
-        //     $params_array = json_decode($json, true);
+        return response()->json($data, 200);
 
-        //     //usuario autenticado
-        //     $usuario = $jwtAuth->checkToken($hash, true);
-
-        //     //validacion
-        //     $request->merge($params_array);
-        //     try{
-        //     $validate = $this->validate($request, [
-        //         'nombre' => 'required|min:5',
-        //         'description' => 'required',
-        //         'año' => 'required'
-        //         //'image' => 'required',
-        //         /*'idEspecie' => 'required',
-        //         'idJaula' => 'required',*/
-        //     ]);
-        //     var_dum($validate);die();
-        //     }catch(\Illuminate\Validation\ValidationException $e){
-        //         return $e->getResponse();
-        //     }
-        //     //guardar animal
-
-        //     $animal = new Animal();
-        //    // $animal->idCuidador = '1'; //$usuario->sub;
-        //     $animal->nombre = $params->nombre;
-        //     $animal->descripcion = $params->description;
-        //     $animal->año = $params->año;
-        //     /*$animal->image = null; //$params->image;
-        //     $animal->idEspecie = '1';
-        //     $animal->idJaula = '1';*/
-        //     $animal->save();
-
-        //     $data = array(
-        //         'animal' => $animal,
-        //         'status' => 'success',
-        //         'code' => 200,
-        //     );
-
-        // } else {
-        //     //devolver error
-        //     $data = array(
-        //         'message' => 'Login incorrecto',
-        //         'status' => 'error',
-        //         'code' => 400,
-        //     );
-
-        // }
-        // return response()->json($data, 200);
     }
 
     /**

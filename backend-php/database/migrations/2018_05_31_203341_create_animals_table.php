@@ -16,12 +16,14 @@ class CreateAnimalsTable extends Migration
         Schema::create('animals', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
-            $table->integer('idJaula');
-            $table->integer('idEspecie');
+            $table->unsignedInteger('idJaula');
+            $table->unsignedInteger('idEspecie');
             $table->string('nombre');
             $table->string('descripcion');
             $table->binary('año');
             $table->binary('image'); // for blob
+            $table->foreign('idEspecie')->references('id')->on('especies');
+            $table->foreign('idJaula')->references('id')->on('jaulas');
             $table->timestamps();
         });
 

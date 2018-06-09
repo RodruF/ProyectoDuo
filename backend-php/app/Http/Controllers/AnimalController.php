@@ -16,7 +16,7 @@ class AnimalController extends Controller
     public function index()
     {
         $animales = animal::all();
-        $response = Response::json($animales,200);
+        $response = Response::json($animales, 200);
         return $response;
     }
 
@@ -25,9 +25,9 @@ class AnimalController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-   /* public function create()
+    /* public function create()
     {
-        //
+    //
     }*/
 
     /**
@@ -38,7 +38,18 @@ class AnimalController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $json = $request->input('json', null);
+        $params = json_decode($json);
+
+        $nombre = (!is_null($json) && isset($params->email)) ? $params->email : null;
+        $descripcion = (!is_null($json) && isset($params->email)) ? $params->descripcion : null;
+        $año = (!is_null($json) && isset($params->email)) ? $params->año : null;
+        $image = (!is_null($json) && isset($params->email)) ? $params->image : null;
+
+        $item->save();
+        return response()->json('Agregado exitosamente');
+
     }
 
     /**
@@ -60,7 +71,7 @@ class AnimalController extends Controller
      */
     /*public function edit(animal $animal)
     {
-        //
+    //
     }*/
 
     /**

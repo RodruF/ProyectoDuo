@@ -39,7 +39,17 @@ class ProductoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $item = new Item([
+           
+            'image' => $request->get('image'),
+            'descrpcion' => $request->get('descrpcion'),
+             'nombre' => $request->get('nombre'),
+             'precio' => $request->get('precio'),
+             'stock' => $request->get('stock')
+        ]);
+        $item->save();
+        return response()->json('Agregado exitosamente');
+
     }
 
     /**

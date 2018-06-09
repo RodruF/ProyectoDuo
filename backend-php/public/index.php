@@ -34,7 +34,22 @@ require __DIR__.'/../vendor/autoload.php';
 | the responses back to the browser and delight our users.
 |
 */
+$allowedOrigins = array(
+    '(http(s)://)?(www\.)?backend-php\.app',
+    'http://localhost4200'
+);
+if (isset($_SERVER['HTTP_ORIGIN']) && $_SERVER['HTTP_ORIGIN'] != ''){
+    foreach($allowedOrigins as $allowedOrigin){
+        if(preg_math('#' . $allowedOrigin . '#', $_SERVER['HTTP_ORIGIN'])){
+            header('Access-control-Allow-Origin: ' . $_SERVER['HTTP_ORIGIN']);
+            header('Access-control-Allow-Methods: GET, PUT, POST, DELETE, OPTIONS' );
+            header('Access-control-Max-Age: 1000');
+            header('Access-control-Allow-Headers: Content-Type, Authorization, x-Requested-With');
 
+
+        }
+    }
+}
 $app = require_once __DIR__.'/../bootstrap/app.php';
 
 /*

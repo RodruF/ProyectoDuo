@@ -16,12 +16,13 @@ class CreateCuidadorsTable extends Migration
         Schema::create('cuidadors', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
-            $table->integer('idRoll');
+            $table->string('role');
             $table->string('nombre');
             $table->string('especialidad');
             $table->string('apellido');
             $table->string('correo');
-            $table->string('contraseña');
+            $table->string('password');
+            $table->rememberToken();
             $table->binary('image'); // for blob
             $table->timestamps();
         });

@@ -39,7 +39,14 @@ class EspecieController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $item = new Item([
+            'nombre' => $request->get('nombre'),
+            'descripcion' => $request->get('descripcion'),
+            'image' => $request->get('image')
+        ]);
+        $item->save();
+        return response()->json('Agregado exitosamente');
+
     }
 
     /**

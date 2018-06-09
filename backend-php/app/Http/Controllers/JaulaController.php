@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\jaula;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class JaulaController extends Controller
 {
@@ -39,7 +40,15 @@ class JaulaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
+        $item = new Item([
+            'nombre' => $request->get('nombre'),
+            'concepto' => $request->get('concepto'),
+            'image' => $request->get('image')
+        ]);
+        $item->save();
+        return response()->json('Agregado exitosamente');
+
     }
 
     /**

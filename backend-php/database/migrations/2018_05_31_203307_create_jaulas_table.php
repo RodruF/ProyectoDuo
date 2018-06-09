@@ -18,7 +18,7 @@ class CreateJaulasTable extends Migration
             $table->increments('id');
             $table->string('nombre');
             $table->string('concepto');
-            $table->binary('image'); // for blob
+            $table->longText('image'); // for blob
 
             $table->timestamps();
         });

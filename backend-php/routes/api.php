@@ -22,7 +22,8 @@ Route::group(['perfix' => 'v1', 'middleware' => 'cors'], function () {
     Route::apiResource('especies', 'EspecieController');
     Route::apiResource('jaulas', 'JaulaController');
     Route::apiResource('productos', 'ProductoController');
-    Route::apiResource('tipousuarios', 'TipousuarioController');
     Route::apiResource('users', 'UserController');
+    Route::apiResource('usuarios', 'UsuarioController');
+    ///Route::post('logins', 'UsuarioController@login');
 
 });
