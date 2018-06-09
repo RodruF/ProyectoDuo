@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response, Headers, RequestOptions } from "@angular/http";
+import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
 import { GLOBAL } from './global';
@@ -15,20 +15,24 @@ export class UserService {
   }
 
   register(user_to_register) {
-    let params = JSON.stringify(user_to_register);
-    let headers = new Headers({ "Content-Type": "application/json" });
+    let params: any;
+    params = JSON.stringify(user_to_register);
+    let headers: any;
+    headers = new Headers({ 'Content-Type': 'application/json' });
 
     return this._http
-      .post(this.url + "register", params, { headers: headers })
+      .post(this.url + 'register', params, { headers: headers })
       .map(res => res.json());
   }
 
   registerKeeper(user_to_register) {
-    let params = JSON.stringify(user_to_register);
-    let headers = new Headers({ "Content-Type": "application/json" });
+    let params: any;
+    params = JSON.stringify(user_to_register);
+    let headers: any;
+    headers = new Headers({ 'Content-Type': 'application/json' });
 
     return this._http
-      .post(this.url + "addkeepers", params, { headers: headers })
+      .post(this.url + 'addkeepers', params, { headers: headers })
       .map(res => res.json());
   }
 
@@ -37,18 +41,21 @@ export class UserService {
       user_to_login.gettoken = gettoken;
     }
 
-    let params = JSON.stringify(user_to_login);
-    let headers = new Headers({ "Content-Type": "application/json" });
+    let params: any;
+    params = JSON.stringify(user_to_login);
+    let headers: any ;
+    headers = new Headers({ 'Content-Type': 'application/json' });
 
     return this._http
-      .post(this.url + "login", params, { headers: headers })
+      .post(this.url + 'login', params, { headers: headers })
       .map(res => res.json());
   }
 
   getIdentity() {
-    let identity = JSON.parse(localStorage.getItem("identity"));
+    let identity: any;
+    identity = JSON.parse(localStorage.getItem('identity'));
 
-    if (identity != "undefined") {
+    if (identity !== 'undefined') {
       this.identity = identity;
     } else {
       this.identity = null;
@@ -58,9 +65,10 @@ export class UserService {
   }
 
   getToken() {
-    let token = localStorage.getItem("token");
+    let token: any;
+    token = localStorage.getItem('token');
 
-    if (token != "undefined") {
+    if (token !== 'undefined') {
       this.token = token;
     } else {
       this.token = null;
@@ -71,48 +79,54 @@ export class UserService {
 
   getkeeperUser(id) {
     return this._http
-      .get(this.url + "keepers-edit/" + id)
+      .get(this.url + 'keepers-edit/' + id)
       .map(res => res.json());
   }
   updateUser(user_to_update) {
-    let params = JSON.stringify(user_to_update);
-    let headers = new Headers({
-      "Content-Type": "application/json",
+    let params: any;
+    params = JSON.stringify(user_to_update);
+    let headers: any ;
+    headers = new Headers({
+      'Content-Type': 'application/json',
       Authorization: this.getToken()
     });
 
     return this._http
-      .put(this.url + "update-user/" + user_to_update._id, params, {
+      .put(this.url + 'update-user/' + user_to_update._id, params, {
         headers: headers
       })
       .map(res => res.json());
   }
 
   editkeeper(token, id, user) {
-    let params = JSON.stringify(user);
-    let headers = new Headers({
-      "Content-Type": "application/json",
+    let params: any;
+    params = JSON.stringify(user);
+    let headers: any;
+    headers = new Headers({
+      'Content-Type': 'application/json',
       Authorization: token
     });
 
     return this._http
-      .put(this.url + "update-user/" + id, params, { headers: headers })
+      .put(this.url + 'update-user/' + id, params, { headers: headers })
       .map(res => res.json());
   }
 
   getKeepers() {
-    return this._http.get(this.url + "keepers").map(res => res.json());
+    return this._http.get(this.url + 'keepers').map(res => res.json());
   }
 
   deleteUser(token, id) {
-    let headers = new Headers({
-      "Content-Type": "application/json",
+    let headers: any ;
+    headers = new Headers({
+      'Content-Type': 'application/json',
       Authorization: token
     });
 
-    let options = new RequestOptions({ headers: headers });
+    let options: any;
+    options = new RequestOptions({ headers: headers });
     return this._http
-      .delete(this.url + "keepers-delete/" + id, options)
+      .delete(this.url + 'keepers-delete/' + id, options)
       .map(res => res.json());
   }
 }
