@@ -4,11 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Cuidador;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use App\Http\Requests;
-
-
-
 
 class CuidadorController extends Controller
 {
@@ -19,17 +14,10 @@ class CuidadorController extends Controller
      */
     public function index()
     {
-        //
-    }
+        $animales = Animal::all();
+        $response = Response::json($animales, 200);
+        return $response;
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -40,28 +28,27 @@ class CuidadorController extends Controller
      */
     public function store(Request $request)
     {
-         $json = $request->input('json', null);
+        $json = $request->input('json', null);
         $params = json_decode($json);
 
         $name = (!is_null($json) && isset($params->name)) ? $params->name : null;
         $apellido = (!is_null($json) && isset($params->apellido)) ? $params->apellido : null;
         $email = (!is_null($json) && isset($params->email)) ? $params->email : null;
         $password = (!is_null($json) && isset($params->password)) ? $params->password : null;
-        
 
         if (!is_null($email) && !is_null($password) && !is_null($name)) {
             // crear cuidador
             $cuidador = new Cuidador();
+            $cuidador->role = 'cuidador';
             $cuidador->email = $email;
             $cuidador->name = $name;
             $cuidador->apellido = $apellido;
-            
 
             $pwd = hash('sha256', $password);
             $cuidador->password = $pwd;
 
             //comprobar usuario duplicado
-             $isset_cuidador = [Cuidador::where('email', '=', $email)->first()];
+            $isset_cuidador = [Cuidador::where('email', '=', $email)->first()];
 
             if (count($isset_cuidador) > 0) {
                 //guardar usuario
@@ -91,7 +78,6 @@ class CuidadorController extends Controller
         return response()->json($data, 200);
     }
 
-
     /**
      * Display the specified resource.
      *
@@ -99,17 +85,6 @@ class CuidadorController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(Cuidador $cuidador)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Cuidador  $cuidador
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Cuidador $cuidador)
     {
         //
     }

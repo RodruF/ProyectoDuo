@@ -17,14 +17,13 @@ class CreateAnimalsTable extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->unsignedInteger('idCuidador');
-            $table->unsignedInteger('idEspecie');
             $table->unsignedInteger('idJaula');
+            $table->string('especie');
             $table->string('nombre');
             $table->string('descripcion');
-            $table->year('año');
+            $table->int('año');
             $table->binary('image'); // for blob
             $table->foreign('idCuidador')->references('id')->on('cuidadors');
-            $table->foreign('idEspecie')->references('id')->on('especies');
             $table->foreign('idJaula')->references('id')->on('jaulas');
 
             $table->timestamps();
