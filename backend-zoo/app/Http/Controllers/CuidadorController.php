@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Cuidador;
+use App\Helpers\JwtAuth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Response;
 
 class CuidadorController extends Controller
 {
@@ -14,8 +16,8 @@ class CuidadorController extends Controller
      */
     public function index()
     {
-        $animales = Animal::all();
-        $response = Response::json($animales, 200);
+        $cuidador = Cuidador::all();
+        $response = Response::json($cuidador, 200);
         return $response;
 
     }

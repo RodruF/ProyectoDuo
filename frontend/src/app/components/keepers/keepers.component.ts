@@ -5,7 +5,7 @@ import { UserService } from '../../services/user.service';
 import { GLOBAL } from '../../services/global';
 
 @Component({
-  selector: 'keepers',
+  selector: 'app-keepers',
   templateUrl: './keepers.component.html',
   providers: [UserService],
   animations: [fadeIn]
@@ -17,22 +17,22 @@ export class KeepersComponent implements OnInit {
 
   	constructor(
   		private _userService: UserService
-  	){
+  	) {
   		this.title = 'Cuidadores';
   		this.url = GLOBAL.url;
   	}
 
-	ngOnInit(){
+	ngOnInit() {
 		console.log('keepers.component cargado !!');
 		this.getKeepers();
 	}
 
-	getKeepers(){
+	getKeepers() {
       this._userService.getKeepers().subscribe(
         response => {
-          if(!response.users){
+          if (!response.users) {
 
-          }else{
+          } else {
             this.keepers = response.users;
           }
         },
