@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
-import 'rxjs/add/operator/map';
-import { Observable } from 'rxjs/Observable';
+// import 'rxjs/add/operator/map';
+// import { Observable } from 'rxjs/Observable';
+import 'rxjs/Rx';
+import {Observable} from 'rxjs/Rx';
 import { GLOBAL } from './global';
 
 @Injectable()
@@ -82,6 +84,7 @@ export class UserService {
       .get(this.url + 'keepers-edit/' + id)
       .map(res => res.json());
   }
+
   updateUser(user_to_update) {
     let params: any;
     params = JSON.stringify(user_to_update);
@@ -113,7 +116,7 @@ export class UserService {
   }
 
   getKeepers() {
-    return this._http.get(this.url + 'keepers').map(res => res.json());
+    return this._http.get(this.url + 'cuidadors').map((response: Response) => response.json());
   }
 
   deleteUser(token, id) {
