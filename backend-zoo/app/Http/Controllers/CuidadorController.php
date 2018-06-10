@@ -14,14 +14,27 @@ class CuidadorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $cuidador = Cuidador::all();
-        $response = Response::json($cuidador, 200);
-        return $response;
+        $hash = $request->header('Authorization', null);
+        $jwtAuth = new JwtAuth();
+        $checkToken = $jwtAuth->checkToken($hash);
+        
 
+        if ($checkToken) {
+            $cuidador = Cuidador::all();
+            $response = Response::json($cuidador, 200);
+            return $response;
+
+        } else {
+            $data = array(
+                'message' => 'autenticacion incorrecta',
+                'status' => 'error',
+                'code' => 400);
+        }
+
+        return response()->json($data, 200);
     }
-
     /**
      * Store a newly created resource in storage.
      *

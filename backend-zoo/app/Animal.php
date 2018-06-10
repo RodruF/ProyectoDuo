@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Animal extends Model
 {
     protected $fillable = [
-      'idCuidador' , 'especie' , 'nombre', 'descripcion', 'año', 'image'
+      'idCuidador' , 'especie' , 'nombre', 'descripcion', 'year', 'image'
     ];
    
      public function cuidador(){

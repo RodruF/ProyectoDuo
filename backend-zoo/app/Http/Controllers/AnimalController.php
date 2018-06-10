@@ -14,12 +14,24 @@ class AnimalController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        
-            $animales = Animal::all();
+        $hash = $request->header('Authorization', null);
+        $jwtAuth = new JwtAuth();
+        $checkToken = $jwtAuth->checkToken($hash);
+
+        if ($checkToken) {
+            $animales = Animal::all()->load('cuidador');
             $response = Response::json($animales, 200);
-             return $response;
+            return $response;
+        } else {
+            $data = array(
+                'message' => 'autenticacion incorrecta',
+                'status' => 'error',
+                'code' => 400);
+        }
+
+        return response()->json($data, 200);
     }
 
     /**
@@ -43,17 +55,17 @@ class AnimalController extends Controller
         $hash = $request->header('Authorization', null);
         $jwtAuth = new JwtAuth();
         $checkToken = $jwtAuth->checkToken($hash);
-
+        $cuidador = $jwtAuth->checkToken($hash, true);
         $json = $request->input('json', null);
         $params = json_decode($json);
 
         $especie = (!is_null($json) && isset($params->especie)) ? $params->especie : null;
         $nombre = (!is_null($json) && isset($params->nombre)) ? $params->nombre : null;
         $descripcion = (!is_null($json) && isset($params->descripcion)) ? $params->descripcion : null;
-        $año = (!is_null($json) && isset($params->año)) ? $params->año : null;
+        $year = (!is_null($json) && isset($params->year)) ? $params->year : null;
 
         if ($checkToken) {
-            if (is_null($especie) || is_null($nombre) || is_null($descripcion) || is_null($año)) {
+            if (is_null($especie) || is_null($nombre) || is_null($descripcion) || is_null($year)) {
                 // TODO hay que meter la imagen
                 $data = array(
                     'status' => 'error',
@@ -65,9 +77,8 @@ class AnimalController extends Controller
                     'especie' => trim($especie),
                     'nombre' => trim($nombre),
                     'descripcion' => trim($descripcion),
-                    'año' => ($año),
-                    // ((int) $request->año),
-                    'idCuidador' => 1,
+                    'year' => ($year),
+                    'idCuidador' => $cuidador->sub,
                 ));
                 $animales->save();
                 $data = array(
