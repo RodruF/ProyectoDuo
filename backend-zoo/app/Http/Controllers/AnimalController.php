@@ -16,22 +16,9 @@ class AnimalController extends Controller
      */
     public function index(Request $request)
     {
-        $hash = $request->header('Authorization', null);
-        $jwtAuth = new JwtAuth();
-        $checkToken = $jwtAuth->checkToken($hash);
 
-        if ($checkToken) {
-            $animales = Animal::all();
-            $response = Response::json($animales, 200);
-        } else {
-            $data = array(
-                'message' => 'Login incorrecto',
-                'status' => 'error',
-                'code' => 400,
-            );
-
-        }
-
+        $animales = Animal::all();
+        $response = Response::json($animales, 200);
         return $response;
     }
 

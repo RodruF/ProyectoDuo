@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs/Observable';
 import { Component, OnInit } from '@angular/core';
 import { fadeIn } from '../animation';
 import { User } from '../../models/user';

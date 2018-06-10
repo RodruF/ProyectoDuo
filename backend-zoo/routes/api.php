@@ -14,8 +14,8 @@
 /*Route::middleware('auth:api')->get('/user', function (Request $request) {
 return $request->user();
 });*/
-Route::group(['prefix' => 'v1'], function () {
-    
+Route::group(['middleware' => 'cors'], function () {
+
     Route::apiResource('animals', 'AnimalController');
     Route::apiResource('cuidadors', 'CuidadorController');
     Route::apiResource('especies', 'EspecieController');

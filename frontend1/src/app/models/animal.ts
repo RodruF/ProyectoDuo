@@ -5,7 +5,7 @@ export class Animal {
     public nombre: string,
     public description: string,
     public especie: string,
-    public año: number,
+    public year: number,
     public image: string,
     public user: User
   ) {}
