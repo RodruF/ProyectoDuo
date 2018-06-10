@@ -31,7 +31,8 @@ export class KeeperDetailComponent implements OnInit {
 
   getUser() {
     this._route.params.forEach((params: Params) => {
-      let id = params['id'];
+      let id: any;
+      id = params['id'];
 
       this._userService.getkeeperUser(id).subscribe(
         response => {

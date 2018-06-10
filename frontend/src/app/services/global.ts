@@ -1,3 +1,3 @@
 export const GLOBAL = {
-  url: 'http://localhost:1212/v1/'
+  url: 'Access-Control-Allow-Origin: http://localhost:1212/v1/'
 };
